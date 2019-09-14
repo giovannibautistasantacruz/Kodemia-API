@@ -27,19 +27,14 @@ router.get('/',async (request,response)=>{
 
     console.log('Haciendo GET!');
 
-    
-
-    const{title,description,author,date,readTime,image}= request.query;
-
-
-    const newPost = await post.search({title,description,author,date,readTime,image})
+    const allPosts = await post.getAll()
 
 
     response.json({
         success: true,
         message: 'Listed Post',
         data:{
-            "posts":newPost
+            "posts":allPosts
         }
     })
 })
@@ -47,16 +42,10 @@ router.get('/',async (request,response)=>{
 router.delete('/:id',async (request,response)=>{
 
     console.log('Haciendo DELETE!');
-
-    
-    console.log(request.params)
-
+  
     const{id}= request.params;
 
-
-
-    const deletePost = await post.postDelete(id)
-
+    const deletePost = await post.deleteById(id)
 
     response.json({
         success: true,
@@ -68,16 +57,12 @@ router.delete('/:id',async (request,response)=>{
 }) //borrar .deleteById de mongoose
 router.patch('/:id',async (request,response)=>{
 
-    console.log('Haciendo PATCH!');
-
-    
-    console.log(request.params)
-
+    console.log('Haciendo UPDATE!');
     const{id}= request.params;
 
     const{title,description,author,date,readTime,image}= request.body;
 
-    const updatePost = await post.update(id,{title,description,author,date,readTime,image})
+    const updatePost = await post.updateById(id,{title,description,author,date,readTime,image})
 
 
     response.json({

@@ -13,43 +13,25 @@ function create({title,date, readTime, description, author, image}){
     return newPost.save()
 }
 
-function search({title,date,readTime,description,author,image}){
+function getAll(){
 
-    const newPost = new Post({
-        title,
-        date,
-        readTime,
-        description,
-        author,image
-    })
-
-    
-   
-
-    const searched = async ()=> await Post.find({title:title,date:date,readTime:readTime,description:description,author:author,image:image})
-
-     
-
-    return searched()
+    return Post.find()
 }
 
-function postDelete(id){
+function deleteById(id){
     
-    const deleted = async ()=> await Post.findByIdAndDelete(id)
-
-    return deleted()
+    return  Post.findByIdAndDelete(id)
 
 }
 
-function update(id,{title,date,readTime,description,author,image}){
-    const updated = async ()=> await Post.findByIdAndUpdate(id,{title,date,readTime,description,author,image})
-
-    return updated()
+function updateById(id,{title,date,readTime,description,author,image}){
+    
+    return Post.findByIdAndUpdate(id,{title,date,readTime,description,author,image})
 }
 
 module.exports = {
     create,
-    search,
-    postDelete,
-    update
+    getAll,
+    deleteById,
+    updateById
 }
